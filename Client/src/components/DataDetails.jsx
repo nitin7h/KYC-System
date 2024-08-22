@@ -1,31 +1,16 @@
 import React, { useEffect } from "react";
 
-import { useNavigate ,Link} from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
-
-
-
-
-
-import {  PhoneIcon, PlayCircleIcon } from '@heroicons/react/20/solid'
+import { PhoneIcon, PlayCircleIcon } from "@heroicons/react/20/solid";
 import {
-  
   FingerPrintIcon,
   UserIcon,
   EnvelopeIcon,
-CreditCardIcon,
-HomeIcon,
-ChartPieIcon
-  
-} from '@heroicons/react/24/outline'
-
-
-
-
-
-
-
-
+  CreditCardIcon,
+  HomeIcon,
+  ChartPieIcon,
+} from "@heroicons/react/24/outline";
 
 export default function DataDetails() {
   const navigate = useNavigate();
@@ -42,7 +27,7 @@ export default function DataDetails() {
     localStorage.removeItem("KYC_adhar");
     localStorage.removeItem("KYC_pancard");
     localStorage.removeItem("KYC_mobile");
-    navigate("/gettDatafromBlockchain");
+    navigate("/gettDatafromDb");
   };
 
   useEffect(() => {
@@ -50,28 +35,22 @@ export default function DataDetails() {
     // console.log("localStorage.getItem : ", token);
 
     if (!token) {
-      return navigate("/gettDatafromBlockchain");
+      return navigate("/gettDatafromDb");
     }
   }, []);
 
-
-
-
-
-
-
   const solutions = [
-    { name: 'Name', description: kyc_name, icon: UserIcon },
-    { name: 'Adhar Number', description: kYC_adhar, icon: FingerPrintIcon },
-    { name: 'Pancard Number', description: kYC_pancard,  icon: CreditCardIcon },
-    { name: 'E-Mail', description: kYC_email,  icon: EnvelopeIcon },
-    { name: 'Mobile Number', description: kYC_mobile,  icon: PhoneIcon },
-  ]
+    { name: "Name", description: kyc_name, icon: UserIcon },
+    { name: "Adhar Number", description: kYC_adhar, icon: FingerPrintIcon },
+    { name: "Pancard Number", description: kYC_pancard, icon: CreditCardIcon },
+    { name: "E-Mail", description: kYC_email, icon: EnvelopeIcon },
+    { name: "Mobile Number", description: kYC_mobile, icon: PhoneIcon },
+  ];
   const callsToAction = [
-    { name: "Get New User's data", href: '#', icon: PlayCircleIcon },
-    { name: 'Home', href: '#', icon: HomeIcon },
-  ]
-  
+    { name: "Get New User's data", href: "#", icon: PlayCircleIcon },
+    { name: "Home", href: "#", icon: HomeIcon },
+  ];
+
   return (
     <>
       {/* <section className="mx-auto w-full max-w-7xl px-4 py-4">
@@ -191,44 +170,31 @@ export default function DataDetails() {
         </div>
       </section> */}
 
-
-
-
-
-
-
-<div className="flex justify-center items-center mt-20">
-<div className=" w-screen max-w-md flex-auto overflow-hidden rounded-3xl bg-blue-300 text-sm leading-6 shadow-xl shadow-black ring-1 ring-gray-900/5">
-<div className=" bg-yellow-500">
-           
-             
-           <div
-            
-             className="-ml-6 flex items-center justify-center gap-5 p-3 font-semibold text-gray-900 "
-           >
-             <ChartPieIcon aria-hidden="true" className="h-5 w-5 flex-none text-gray-400" />
-             User's KYC data
-           </div>
-
-          
-
-
-           
-          
-
-           
-
-         
-       </div>
+      <div className="flex justify-center items-center mt-20">
+        <div className=" w-screen max-w-md flex-auto overflow-hidden rounded-3xl bg-blue-300 text-sm leading-6 shadow-xl shadow-black ring-1 ring-gray-900/5">
+          <div className=" bg-yellow-500">
+            <div className="-ml-6 flex items-center justify-center gap-5 p-3 font-semibold text-gray-900 ">
+              <ChartPieIcon
+                aria-hidden="true"
+                className="h-5 w-5 flex-none text-gray-400"
+              />
+              User's KYC data
+            </div>
+          </div>
           <div className="p-4">
-          
             {solutions.map((item) => (
-              <div key={item.name} className="group relative flex gap-x-6 rounded-lg p-4 hover:bg-gray-50">
+              <div
+                key={item.name}
+                className="group relative flex gap-x-6 rounded-lg p-4 hover:bg-gray-50"
+              >
                 <div className="mt-1 flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
-                  <item.icon aria-hidden="true" className="h-6 w-6 text-gray-600 group-hover:text-indigo-600" />
+                  <item.icon
+                    aria-hidden="true"
+                    className="h-6 w-6 text-gray-600 group-hover:text-indigo-600"
+                  />
                 </div>
                 <div>
-                  <div  className="font-semibold text-gray-900">
+                  <div className="font-semibold text-gray-900">
                     {item.name}
                     <span className="absolute inset-0" />
                   </div>
@@ -238,38 +204,31 @@ export default function DataDetails() {
             ))}
           </div>
 
-
           <div className="grid grid-cols-2  divide-x divide-gray-900/5 bg-yellow-500">
-           
-             
-              <button
-               onClick={newData}
-               type="button"
-                className="flex items-center justify-center gap-x-2.5 p-3 font-semibold text-gray-900 hover:bg-gray-200"
-              >
-                <PlayCircleIcon aria-hidden="true" className="h-5 w-5 flex-none text-gray-400" />
-                Get New User's data
-              </button>
+            <button
+              onClick={newData}
+              type="button"
+              className="flex items-center justify-center gap-x-2.5 p-3 font-semibold text-gray-900 hover:bg-gray-200"
+            >
+              <PlayCircleIcon
+                aria-hidden="true"
+                className="h-5 w-5 flex-none text-gray-400"
+              />
+              Get New User's data
+            </button>
 
-              <Link  to={"/mainpage"}><div
-      
-      className="flex items-center justify-center gap-x-2.5 p-3 font-semibold text-gray-900 hover:bg-gray-200"
-    >
-      <HomeIcon aria-hidden="true" className="h-5 w-5 flex-none text-gray-400" />
-      Home
-    </div>
-</Link>
-
-
-              
-             
-
-              
-
-            
+            <Link to={"/mainpage"}>
+              <div className="flex items-center justify-center gap-x-2.5 p-3 font-semibold text-gray-900 hover:bg-gray-200">
+                <HomeIcon
+                  aria-hidden="true"
+                  className="h-5 w-5 flex-none text-gray-400"
+                />
+                Home
+              </div>
+            </Link>
           </div>
         </div>
-</div>
+      </div>
     </>
   );
 }

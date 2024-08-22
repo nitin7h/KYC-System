@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { ArrowRight } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-export default function GetDataFromBlockchain() {
+export default function GetDataFromDb() {
   const navigate = useNavigate();
 
   const [user, setUser] = useState({
@@ -24,7 +24,7 @@ export default function GetDataFromBlockchain() {
     // console.log("****** : ", user);
     if (adhar) {
       await axios
-        .post("http://localhost:7000/getDataFromBlockchain", user)
+        .post("http://localhost:7000/getDataFromDb", user)
 
         .then((res) => {
           // console.log("***** : ", res.data.kycData);
@@ -33,59 +33,39 @@ export default function GetDataFromBlockchain() {
           alert(res.data.message);
           // console.log("alert(res.data.message); : ",res.data.message);
           // console.log("alert(res.data.message); : ",res.data);
-          
-          
-          if (res.data.kycData) {
 
+          if (res.data.kycData) {
             const kycData = res.data.kycData;
             // console.log("email : ",res.data.kycData);
             // localStorage.setItem("KYC_name", kycData.name);
-           localStorage.setItem("KYC_email", kycData.email);
-           
-           
+            localStorage.setItem("KYC_email", kycData.email);
+
             localStorage.setItem("KYC_adhar", kycData.adhar);
             // localStorage.setItem("KYC_pancard", kycData.pancard);
             // localStorage.setItem("KYC_mobile", kycData.mobile);
             // navigate("/dataDetails");
 
-
-            const sendOtp = async()=>{
+            const sendOtp = async () => {
               await axios
-              .post("http://localhost:7000/sendOtp",res.data.kycData).then((res)=>{
-                // console.log("ab isse kheluga : ",res.data.message);
+                .post("http://localhost:7000/sendOtp", res.data.kycData)
+                .then((res) => {
+                  // console.log("ab isse kheluga : ",res.data.message);
 
-                if(res.data.message=== "OTP sent successfully"){
+                  if (res.data.message === "OTP sent successfully") {
+                    const sendOtpFlag = true;
 
-                  const sendOtpFlag = true
-                  
-                  // console.log("flag", sendOtpFlag);
-                  localStorage.setItem("Otp_flag", sendOtpFlag);
-                  
-                  
-                  navigate("/verifyOtp");
-                }
+                    // console.log("flag", sendOtpFlag);
+                    localStorage.setItem("Otp_flag", sendOtpFlag);
 
+                    navigate("/verifyOtp");
+                  }
+                })
+                .catch((err) => {
+                  console.log(err);
+                });
+            };
 
-
-                
-                
-
-
-
-
-               
-                
-                
-              }).catch((err)=>{
-                console.log(err);
-                
-              })
-            }
-
-            sendOtp()
-
-
-            
+            sendOtp();
           }
         })
         .catch((err) => {
@@ -94,10 +74,6 @@ export default function GetDataFromBlockchain() {
     } else {
       alert("Please Enter Valid inputs");
     }
-
-
-
-
   };
 
   return (

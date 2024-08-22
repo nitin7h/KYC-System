@@ -37,7 +37,7 @@ const signup = async(req, res) => {
 
 const login = async(req, res) => {
     const { email, password } = req.body
-  
+
 
     try {
         const user = await User.findOne({ email });
@@ -46,8 +46,8 @@ const login = async(req, res) => {
         }
         const isMatch = await bcrypt.compare(password, user.password);
         // console.log("isMatch : ",isMatch);
-        
-        
+
+
         if (!isMatch) {
             return res.send({ message: "Wrong Password" });
         }
@@ -73,7 +73,7 @@ const mainPage = (req, res) => {
     res.status(200).json("getting data")
 }
 
-const getDataFromBlockchain = async(req, res) => {
+const getDataFromDb = async(req, res) => {
 
 
     const { adhar } = req.body
@@ -111,7 +111,7 @@ const getDataFromBlockchain = async(req, res) => {
     // res.status(200).json("Getting data")
 
 }
-const postDataOnBlockchain = async(req, res) => {
+const postDataOnDb = async(req, res) => {
     const { name, email, adhar, pancard, mobile } = req.body
 
     try {
@@ -159,4 +159,4 @@ const postDataOnBlockchain = async(req, res) => {
 
 
 
-module.exports = { home, signup, login, mainPage, getDataFromBlockchain, postDataOnBlockchain }
+module.exports = { home, signup, login, mainPage, getDataFromDb, postDataOnDb }

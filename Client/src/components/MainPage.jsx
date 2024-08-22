@@ -5,12 +5,12 @@ import axios from "axios";
 export default function MainPage() {
   const navigate = useNavigate();
 
-  const postDataOnBlockchain = () => {
-    navigate("/postDataOnBlockchain");
+  const postDataOnDb = () => {
+    navigate("/postDataOnDb");
   };
 
-  const gettDatafromBlockchain = () => {
-    navigate("/gettDatafromBlockchain");
+  const gettDatafromDb = () => {
+    navigate("/gettDatafromDb");
   };
 
   useEffect(() => {
@@ -70,23 +70,21 @@ export default function MainPage() {
               <div className="space-y-5">
                 <div>
                   <button
-                    onClick={postDataOnBlockchain}
+                    onClick={postDataOnDb}
                     type="button"
                     className="inline-flex w-full items-center justify-center rounded-md bg-black px-3.5 py-2.5 font-semibold leading-7 text-white hover:bg-black/80"
                   >
-                    Complete KYC {" "}
-                    <ArrowRight className="ml-2" size={16} />
+                    Complete KYC <ArrowRight className="ml-2" size={16} />
                   </button>
                 </div>
 
                 <div>
                   <button
-                    onClick={gettDatafromBlockchain}
+                    onClick={gettDatafromDb}
                     type="button"
                     className="inline-flex w-full items-center justify-center rounded-md bg-black px-3.5 py-2.5 font-semibold leading-7 text-white hover:bg-black/80"
                   >
-                    Get KYC data {" "}
-                    <ArrowRight className="ml-2" size={16} />
+                    Get KYC data <ArrowRight className="ml-2" size={16} />
                   </button>
                 </div>
               </div>

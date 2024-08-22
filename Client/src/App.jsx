@@ -1,12 +1,12 @@
 import "./App.css";
 import Signup from "./components/Signup";
 import Login from "./components/Login";
-import GetDataFromBlockchain from "./components/GetDataFromBlockchain";
+import GetDataFromDb from "./components/GetDataFromDb";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import DataDetails from "./components/DataDetails";
 import Home from "./components/Home";
 import MainPage from "./components/MainPage";
-import PostDataOnBlockchain from "./components/PostDataOnBlockchain";
+import PostDataOnDb from "./components/PostDataOnDb";
 import VerifyOtp from "./components/VerifyOtp";
 
 function App() {
@@ -25,19 +25,14 @@ function App() {
 
           <Route path="/mainpage" element={<MainPage></MainPage>}></Route>
           <Route
-            path="/postDataOnBlockchain"
-            element={<PostDataOnBlockchain></PostDataOnBlockchain>}
+            path="/postDataOnDb"
+            element={<PostDataOnDb></PostDataOnDb>}
           ></Route>
-          <Route
-            path="/VerifyOtp"
-            element={<VerifyOtp></VerifyOtp>}
-          ></Route>
-
-
+          <Route path="/VerifyOtp" element={<VerifyOtp></VerifyOtp>}></Route>
 
           <Route
-            path="/gettDatafromBlockchain"
-            element={<GetDataFromBlockchain></GetDataFromBlockchain>}
+            path="/gettDatafromDb"
+            element={<GetDataFromDb></GetDataFromDb>}
           ></Route>
         </Routes>
       </BrowserRouter>

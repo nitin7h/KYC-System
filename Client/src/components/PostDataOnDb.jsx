@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-export default function PostDataOnBlockchain() {
+export default function PostDataOnDb() {
   const [user, setUser] = useState({
     name: "",
     email: "",
@@ -27,7 +27,7 @@ export default function PostDataOnBlockchain() {
     try {
       if (name && email && adhar && pancard && mobile) {
         await axios
-          .post("http://localhost:7000/postDataOnBlockchain", user)
+          .post("http://localhost:7000/postDataOnDb", user)
           .then((res) => {
             alert(res.data.message);
           })
