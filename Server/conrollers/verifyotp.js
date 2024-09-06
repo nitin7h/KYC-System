@@ -1,5 +1,6 @@
 const crypto = require('crypto');
 const nodemailer = require("nodemailer")
+const CryptoJS = require('crypto-js');
 require('dotenv').config()
 const UserOtp = require("../models/otpModel");
 
@@ -110,7 +111,17 @@ const sendEmailOTP = (req, res) => {
 
 }
 
+const secretKey = "Nitin@1234"
+    // Encryption function
+const encrypt = (text) => {
+    return CryptoJS.AES.encrypt(text, secretKey).toString();
+};
 
+// Decryption function
+const decrypt = (ciphertext) => {
+    const bytes = CryptoJS.AES.decrypt(ciphertext, secretKey);
+    return bytes.toString(CryptoJS.enc.Utf8);
+};
 
 const verifyEmailOTP = async(req, res) => {
 
@@ -142,8 +153,25 @@ const verifyEmailOTP = async(req, res) => {
 
                     if (userMatched) {
 
-                        const kycData = userMatched
-                            // console.log("******* : ", kycData);
+                        // const kycData = userMatched
+                        // console.log("******* : ", kycData);
+
+                        const kycDataDb = userMatched
+
+                        const namekycDataDb = decrypt(kycDataDb.name)
+                        const pancardkycDataDb = decrypt(kycDataDb.pancard)
+                        const mobilekycDataDb = decrypt(kycDataDb.mobile)
+
+
+                        const kycData = {
+                                name: namekycDataDb,
+                                pancard: pancardkycDataDb,
+                                mobile: mobilekycDataDb,
+                                email: kycDataDb.email,
+                                adhar: kycDataDb.adhar,
+                            }
+                            // console.log(" 99999999999999999999 : ", kycData.name);
+
 
 
                         return res.send({ message: "OTP Verified successfully...", kycData })

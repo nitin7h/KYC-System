@@ -31,8 +31,8 @@ export default function GetDataFromDb() {
           //  console.log("yeh hai : ",res.data.kycData.email);
           //  const sendOtpToEmail = res.data.kycData.email
           alert(res.data.message);
-          // console.log("alert(res.data.message); : ",res.data.message);
-          // console.log("alert(res.data.message); : ",res.data);
+          // console.log("alert(res.data.message); : ", res.data.message);
+          // console.log("alert(res.data.kyc); : ", res.data.kycData);
 
           if (res.data.kycData) {
             const kycData = res.data.kycData;
@@ -49,8 +49,6 @@ export default function GetDataFromDb() {
               await axios
                 .post("http://localhost:7000/sendOtp", res.data.kycData)
                 .then((res) => {
-                  // console.log("ab isse kheluga : ",res.data.message);
-
                   if (res.data.message === "OTP sent successfully") {
                     const sendOtpFlag = true;
 

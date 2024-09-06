@@ -2,6 +2,7 @@ const { generateToken } = require("../verification/jwt")
 const User = require("../models/model")
 const Userkyc = require("../models/model2")
 const bcrypt = require('bcryptjs');
+const CryptoJS = require('crypto-js');
 const home = (req, res) => {
     res.status(200).send("Hi from Server")
 }
@@ -73,6 +74,24 @@ const mainPage = (req, res) => {
     res.status(200).json("getting data")
 }
 
+
+const secretKey = "Nitin@1234"
+    // Encryption function
+const encrypt = (text) => {
+    return CryptoJS.AES.encrypt(text, secretKey).toString();
+};
+
+// Decryption function
+const decrypt = (ciphertext) => {
+    const bytes = CryptoJS.AES.decrypt(ciphertext, secretKey);
+    return bytes.toString(CryptoJS.enc.Utf8);
+};
+
+
+
+
+
+
 const getDataFromDb = async(req, res) => {
 
 
@@ -89,8 +108,21 @@ const getDataFromDb = async(req, res) => {
 
         if (userMatched) {
 
-            const kycData = userMatched
-                // console.log("******* : ", kycData);
+            const kycDataDb = userMatched
+
+            const namekycDataDb = decrypt(kycDataDb.name)
+            const pancardkycDataDb = decrypt(kycDataDb.pancard)
+            const mobilekycDataDb = decrypt(kycDataDb.mobile)
+
+
+            const kycData = {
+                    name: namekycDataDb,
+                    pancard: pancardkycDataDb,
+                    mobile: mobilekycDataDb,
+                    email: kycDataDb.email,
+                    adhar: kycDataDb.adhar,
+                }
+                // console.log(" 99999999999999999999 : ", kycData.name);
 
 
             return res.send({ message: "Data fetched Succesfully", kycData })
@@ -120,11 +152,11 @@ const postDataOnDb = async(req, res) => {
             return res.status(200).send({ message: "User allready Exist with this Email" })
         } else {
             const userData = new Userkyc({
-                name: name,
+                name: encrypt(name),
                 email: email,
                 adhar: adhar,
-                pancard: pancard,
-                mobile: mobile
+                pancard: encrypt(pancard),
+                mobile: encrypt(mobile)
 
             })
 
